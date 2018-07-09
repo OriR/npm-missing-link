@@ -1,0 +1,13 @@
+.npmrc
+.babelrc
+node_modules/
+src/
+temp/
+webpack.config.documentation.js
+NEXT_VERSION.md
+npm-debug.log*
+*.spec.js*
+**/components/**/[Ss]tory/
+*.story.*
+./scripts/
+./stories/

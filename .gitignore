@@ -1,0 +1,22 @@
+# temp folder which is used only in order to run webpack (it should be deleted as part of the script, but just in case)
+temp
+*.tgz
+
+# es - our build output
+es
+
+# IDE
+.idea
+.vscode
+# npm
+node_modules
+npm-debug.log
+npm-debug.log.*
+
+# Ignore annoying DS files
+.DS_Store
+*.DS_Store
+**.DS_Store
+
+# zips
+*.zip
