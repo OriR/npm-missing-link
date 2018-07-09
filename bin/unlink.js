@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const fs = require('fs-extra');
 const path = require('path');
 const execa = require('execa');
 const os = require('os');
@@ -12,11 +13,12 @@ const detachLinkExtension = os.platform() === 'win32' ? '.bat' : '.sh';
 // Causing the parser to think the last character is "
 const pathToApp = process.argv[2].replace(/(.*)(?:")$/, (full, group) => group);
 
-const appDependencies = require(path.relative('.', path.resolve(pathToApp, 'package.json')).replace(/\\/g, '/')).dependencies;
+const appDependencies = require(path.relative(path.resolve('.', 'node_modules', 'npm-missing-link', 'bin'), path.resolve(pathToApp, 'package.json')).replace(/\\/g, '/')).dependencies;
 const packageVersion = appDependencies[packageJson.name];
 
 // The reason we're deferring the `npm i` command to a shell script is that for some reason when run inside node it doesn't always find the npm registry.
-execa(path.join('.', `detach-link${detachLinkExtension}`), [pathToApp, `${packageJson.name}@${packageVersion}`])
+fs.remove(path.resolve(pathToApp, 'node_modules', packageJson.name.replace(/\//g, path.sep), 'node_modules'))
+  .then(() => execa(path.join('node_modules', 'npm-missing-link', 'bin', `detach-link${detachLinkExtension}`), [pathToApp, `${packageJson.name}@${packageVersion}`], { stdio: 'inherit' }))
   .then(() => {
     console.log(`Unlinked ${packageJson.name} successfully!`);
   })
