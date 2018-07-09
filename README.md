@@ -7,8 +7,8 @@
 * [Usage](#usage)
   * [Configuration](#configuration)
   * [Linking](#linking)
-* [Why?](#why?)
-* [`npm-missing-link` & `React`](#npm-missing-link-&-react)
+* [Why?](#why)
+* [`npm-missing-link` & `React`](#npm-missing-link--react)
 * [Contributing](#contributing)
 
 ### Install
@@ -56,7 +56,7 @@ Then, whenever you want, link your package somewhere else by running:
 ```
 npm run link -- path/to/another/app/using/your/package
 ```
-If your package has a `watchScript`, you can run it now.
+If your package has a `watch` script, you can run it now - unless you specified `executeOnLink: true`, in which case it'll automatically run.
 Your app is linked successfully to your package! changes should be reflected instantly ⚡️ !
 
 Done working? don't need the link anymore? want to go back to the previous state? no problem!

@@ -83,13 +83,14 @@ require('cosmiconfig')('npm-missing-link', {
       .then(paths => Promise.all(paths.all.map(linkPath)))
       .then(() => {
         if (config.watch && config.watch.executeOnLink) {
-          return execa.shell(config.watch.script);
+          return execa.shell(config.watch.script, { stdio: 'inherit' });
         } else if (config.watch && config.watch.script) {
-          const watchSection = config.watch.script
-          ? `\nRun \x1b[36m${config.watch.script}\x1b[0m to make sure your changes replicate here \x1b[33m${pathToApp}\x1b[0m.`
-          : '';
-        console.log(`\x1b[44mDone linking!\x1b[0m${watchSection}
-    Run \x1b[36mnpm run unlink -- ${pathToApp}\x1b[0m to remove the link.`);
+        console.log(`\x1b[44mDone linking!\x1b[0m
+Run \x1b[36m${config.watch.script}\x1b[0m to make sure your changes replicate here \x1b[33m${pathToApp}\x1b[0m.
+Run \x1b[36mnpm run unlink -- ${pathToApp}\x1b[0m to remove the link.`);
+        } else {
+          console.log(`\x1b[44mDone linking!\x1b[0m
+Run \x1b[36mnpm run unlink -- ${pathToApp}\x1b[0m to remove the link.`);
         }
     })
       .catch((e) => {
